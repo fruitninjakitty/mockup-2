@@ -1,10 +1,9 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { CourseMap } from './CourseMap';
-import { trophy } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 
 interface Course {
   id: string;
@@ -145,7 +144,7 @@ export const StudentDashboard = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <trophy className="w-5 h-5 text-yellow-500" />
+                <Trophy className="w-5 h-5 text-yellow-500" />
                 <span>Achievements</span>
               </CardTitle>
             </CardHeader>

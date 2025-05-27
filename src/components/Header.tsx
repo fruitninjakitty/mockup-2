@@ -1,10 +1,9 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { trophy } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 
 interface User {
   name: string;
@@ -65,7 +64,7 @@ export const Header = ({ user, onRoleChange }: HeaderProps) => {
           {isLoggedIn ? (
             <>
               <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
-                <trophy className="w-4 h-4 text-yellow-500" />
+                <Trophy className="w-4 h-4 text-yellow-500" />
                 <span className="text-sm font-medium">{currentUser.points}</span>
                 <Badge className={`${getLeagueColor(currentUser.league)} text-white text-xs`}>
                   {currentUser.league.toUpperCase()}
