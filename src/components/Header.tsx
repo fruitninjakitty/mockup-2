@@ -1,4 +1,5 @@
 
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -22,7 +23,7 @@ export const Header = ({ user, onRoleChange }: HeaderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
 
   const mockUser: User = {
-    name: 'Alex Johnson',
+    name: 'Alex Chen',
     role: 'learner',
     league: 'gold',
     points: 2450
@@ -115,3 +116,4 @@ export const Header = ({ user, onRoleChange }: HeaderProps) => {
     </header>
   );
 };
+

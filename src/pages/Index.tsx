@@ -1,4 +1,5 @@
 
+
 import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { StudentDashboard } from '@/components/StudentDashboard';
@@ -29,7 +30,7 @@ const Index = () => {
       <Header 
         onRoleChange={setCurrentRole}
         user={{
-          name: 'Alex Johnson',
+          name: 'Alex Chen',
           role: currentRole,
           league: 'gold',
           points: 2450
@@ -41,3 +42,4 @@ const Index = () => {
 };
 
 export default Index;
+
