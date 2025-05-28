@@ -1,8 +1,11 @@
+
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { CourseMap } from './CourseMap';
+import { LessonView } from './LessonView';
 import { Trophy } from 'lucide-react';
 
 interface Course {
@@ -22,6 +25,9 @@ interface Achievement {
 }
 
 export const StudentDashboard = () => {
+  const [currentView, setCurrentView] = useState<'dashboard' | 'lesson'>('dashboard');
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+
   const courses: Course[] = [
     {
       id: '1',
@@ -83,6 +89,26 @@ export const StudentDashboard = () => {
     return colors[rarity as keyof typeof colors] || 'border-gray-300 text-gray-600';
   };
 
+  const handleContinueLearning = (course: Course) => {
+    setSelectedCourse(course);
+    setCurrentView('lesson');
+  };
+
+  const handleBackToDashboard = () => {
+    setCurrentView('dashboard');
+    setSelectedCourse(null);
+  };
+
+  if (currentView === 'lesson' && selectedCourse) {
+    return (
+      <LessonView
+        courseTitle={selectedCourse.title}
+        modules={selectedCourse.modules}
+        onBack={handleBackToDashboard}
+      />
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Welcome Section */}
@@ -113,7 +139,10 @@ export const StudentDashboard = () => {
                     </Badge>
                   </div>
                   <Progress value={course.progress} className="mb-3" />
-                  <Button className="w-full bg-primary hover:bg-primary/90">
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90"
+                    onClick={() => handleContinueLearning(course)}
+                  >
                     Continue Learning
                   </Button>
                 </div>
