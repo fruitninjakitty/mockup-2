@@ -33,67 +33,162 @@ export const StudentDashboard = () => {
     {
       id: '1',
       title: 'Introduction to Computer Science',
-      progress: 75,
+      progress: 45,
       modules: [
+        // Tier 0 - Foundation
         { 
           id: '1', 
-          title: 'Variables', 
-          x: 20, 
-          y: 20, 
+          title: 'Programming Basics', 
           completed: true, 
           locked: false, 
           type: 'lesson',
-          position: { x: 15, y: 25 }
+          tier: 0,
+          prerequisites: []
         },
         { 
           id: '2', 
-          title: 'Loops', 
-          x: 40, 
-          y: 30, 
+          title: 'Variables & Types', 
           completed: true, 
           locked: false, 
           type: 'lesson',
-          position: { x: 30, y: 35 }
+          tier: 0,
+          prerequisites: ['1']
         },
+        
+        // Tier 1 - Control Structures
         { 
           id: '3', 
-          title: 'Functions Quiz', 
-          x: 60, 
-          y: 25, 
+          title: 'Conditionals', 
           completed: true, 
           locked: false, 
-          type: 'quiz',
-          position: { x: 50, y: 30 }
+          type: 'lesson',
+          tier: 1,
+          prerequisites: ['2']
         },
         { 
           id: '4', 
-          title: 'Arrays', 
-          x: 80, 
-          y: 40, 
-          completed: false, 
+          title: 'Loops', 
+          completed: true, 
           locked: false, 
           type: 'lesson',
-          position: { x: 70, y: 45 }
+          tier: 1,
+          prerequisites: ['2']
         },
         { 
           id: '5', 
-          title: 'Final Project', 
-          x: 90, 
-          y: 60, 
+          title: 'Control Flow Quiz', 
+          completed: false, 
+          locked: false, 
+          type: 'quiz',
+          tier: 1,
+          prerequisites: ['3', '4']
+        },
+        
+        // Tier 2 - Functions & Data
+        { 
+          id: '6', 
+          title: 'Functions', 
+          completed: false, 
+          locked: false, 
+          type: 'lesson',
+          tier: 2,
+          prerequisites: ['5']
+        },
+        { 
+          id: '7', 
+          title: 'Arrays', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 2,
+          prerequisites: ['6']
+        },
+        { 
+          id: '8', 
+          title: 'Strings', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 2,
+          prerequisites: ['6']
+        },
+        { 
+          id: '9', 
+          title: 'Data Structures Quiz', 
+          completed: false, 
+          locked: true, 
+          type: 'quiz',
+          tier: 2,
+          prerequisites: ['7', '8']
+        },
+        
+        // Tier 3 - Advanced Concepts
+        { 
+          id: '10', 
+          title: 'Object-Oriented Programming', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 3,
+          prerequisites: ['9']
+        },
+        { 
+          id: '11', 
+          title: 'Recursion', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 3,
+          prerequisites: ['9']
+        },
+        { 
+          id: '12', 
+          title: 'File I/O', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 3,
+          prerequisites: ['10']
+        },
+        
+        // Tier 4 - Projects & Assessment
+        { 
+          id: '13', 
+          title: 'Mini Project: Calculator', 
           completed: false, 
           locked: true, 
           type: 'project',
-          position: { x: 85, y: 65 }
+          tier: 4,
+          prerequisites: ['10', '11']
         },
+        { 
+          id: '14', 
+          title: 'Final Project: Game Development', 
+          completed: false, 
+          locked: true, 
+          type: 'project',
+          tier: 4,
+          prerequisites: ['12', '13']
+        },
+        { 
+          id: '15', 
+          title: 'Final Assessment', 
+          completed: false, 
+          locked: true, 
+          type: 'quiz',
+          tier: 4,
+          prerequisites: ['14']
+        },
+        
+        // Tier 5 - Achievement
         {
-          id: '6',
+          id: '16',
           title: 'CS Master',
-          x: 95,
-          y: 80,
           completed: false,
           locked: true,
           type: 'achievement',
-          position: { x: 90, y: 80 }
+          tier: 5,
+          prerequisites: ['15']
         }
       ],
       lastAccessed: '2 hours ago'
@@ -101,37 +196,133 @@ export const StudentDashboard = () => {
     {
       id: '2',
       title: 'Data Structures & Algorithms',
-      progress: 30,
+      progress: 25,
       modules: [
+        // Tier 0 - Foundation
         { 
           id: '1', 
-          title: 'Big O', 
-          x: 15, 
-          y: 25, 
+          title: 'Algorithm Analysis', 
           completed: true, 
           locked: false, 
           type: 'lesson',
-          position: { x: 20, y: 30 }
+          tier: 0,
+          prerequisites: []
         },
         { 
           id: '2', 
-          title: 'Stacks', 
-          x: 35, 
-          y: 35, 
+          title: 'Big O Notation', 
+          completed: true, 
+          locked: false, 
+          type: 'lesson',
+          tier: 0,
+          prerequisites: ['1']
+        },
+        
+        // Tier 1 - Linear Data Structures
+        { 
+          id: '3', 
+          title: 'Arrays & Lists', 
           completed: false, 
           locked: false, 
           type: 'lesson',
-          position: { x: 40, y: 40 }
+          tier: 1,
+          prerequisites: ['2']
         },
         { 
-          id: '3', 
+          id: '4', 
+          title: 'Stacks', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 1,
+          prerequisites: ['3']
+        },
+        { 
+          id: '5', 
           title: 'Queues', 
-          x: 55, 
-          y: 30, 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 1,
+          prerequisites: ['3']
+        },
+        { 
+          id: '6', 
+          title: 'Linear Structures Quiz', 
           completed: false, 
           locked: true, 
           type: 'quiz',
-          position: { x: 60, y: 35 }
+          tier: 1,
+          prerequisites: ['4', '5']
+        },
+        
+        // Tier 2 - Tree Structures
+        { 
+          id: '7', 
+          title: 'Binary Trees', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 2,
+          prerequisites: ['6']
+        },
+        { 
+          id: '8', 
+          title: 'Binary Search Trees', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 2,
+          prerequisites: ['7']
+        },
+        { 
+          id: '9', 
+          title: 'Tree Traversal', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 2,
+          prerequisites: ['8']
+        },
+        
+        // Tier 3 - Advanced Structures
+        { 
+          id: '10', 
+          title: 'Hash Tables', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 3,
+          prerequisites: ['9']
+        },
+        { 
+          id: '11', 
+          title: 'Graphs', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 3,
+          prerequisites: ['9']
+        },
+        { 
+          id: '12', 
+          title: 'Advanced Algorithms', 
+          completed: false, 
+          locked: true, 
+          type: 'lesson',
+          tier: 3,
+          prerequisites: ['10', '11']
+        },
+        
+        // Tier 4 - Final Assessment
+        {
+          id: '13',
+          title: 'DSA Master',
+          completed: false,
+          locked: true,
+          type: 'achievement',
+          tier: 4,
+          prerequisites: ['12']
         }
       ],
       lastAccessed: '1 day ago'
