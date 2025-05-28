@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { CourseMap } from './CourseMap';
 import { LessonView } from './LessonView';
+import { LearningMap } from './LearningMap';
 import { Trophy } from 'lucide-react';
 
 interface Course {
@@ -25,8 +25,9 @@ interface Achievement {
 }
 
 export const StudentDashboard = () => {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'lesson'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'lesson' | 'map'>('dashboard');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
 
   const courses: Course[] = [
     {
@@ -34,11 +35,66 @@ export const StudentDashboard = () => {
       title: 'Introduction to Computer Science',
       progress: 75,
       modules: [
-        { id: '1', title: 'Variables', x: 20, y: 20, completed: true, locked: false, type: 'lesson' },
-        { id: '2', title: 'Loops', x: 40, y: 30, completed: true, locked: false, type: 'lesson' },
-        { id: '3', title: 'Functions', x: 60, y: 25, completed: true, locked: false, type: 'quiz' },
-        { id: '4', title: 'Arrays', x: 80, y: 40, completed: false, locked: false, type: 'lesson' },
-        { id: '5', title: 'Final Project', x: 90, y: 60, completed: false, locked: true, type: 'project' }
+        { 
+          id: '1', 
+          title: 'Variables', 
+          x: 20, 
+          y: 20, 
+          completed: true, 
+          locked: false, 
+          type: 'lesson',
+          position: { x: 15, y: 25 }
+        },
+        { 
+          id: '2', 
+          title: 'Loops', 
+          x: 40, 
+          y: 30, 
+          completed: true, 
+          locked: false, 
+          type: 'lesson',
+          position: { x: 30, y: 35 }
+        },
+        { 
+          id: '3', 
+          title: 'Functions Quiz', 
+          x: 60, 
+          y: 25, 
+          completed: true, 
+          locked: false, 
+          type: 'quiz',
+          position: { x: 50, y: 30 }
+        },
+        { 
+          id: '4', 
+          title: 'Arrays', 
+          x: 80, 
+          y: 40, 
+          completed: false, 
+          locked: false, 
+          type: 'lesson',
+          position: { x: 70, y: 45 }
+        },
+        { 
+          id: '5', 
+          title: 'Final Project', 
+          x: 90, 
+          y: 60, 
+          completed: false, 
+          locked: true, 
+          type: 'project',
+          position: { x: 85, y: 65 }
+        },
+        {
+          id: '6',
+          title: 'CS Master',
+          x: 95,
+          y: 80,
+          completed: false,
+          locked: true,
+          type: 'achievement',
+          position: { x: 90, y: 80 }
+        }
       ],
       lastAccessed: '2 hours ago'
     },
@@ -47,9 +103,36 @@ export const StudentDashboard = () => {
       title: 'Data Structures & Algorithms',
       progress: 30,
       modules: [
-        { id: '1', title: 'Big O', x: 15, y: 25, completed: true, locked: false, type: 'lesson' },
-        { id: '2', title: 'Stacks', x: 35, y: 35, completed: false, locked: false, type: 'lesson' },
-        { id: '3', title: 'Queues', x: 55, y: 30, completed: false, locked: true, type: 'quiz' }
+        { 
+          id: '1', 
+          title: 'Big O', 
+          x: 15, 
+          y: 25, 
+          completed: true, 
+          locked: false, 
+          type: 'lesson',
+          position: { x: 20, y: 30 }
+        },
+        { 
+          id: '2', 
+          title: 'Stacks', 
+          x: 35, 
+          y: 35, 
+          completed: false, 
+          locked: false, 
+          type: 'lesson',
+          position: { x: 40, y: 40 }
+        },
+        { 
+          id: '3', 
+          title: 'Queues', 
+          x: 55, 
+          y: 30, 
+          completed: false, 
+          locked: true, 
+          type: 'quiz',
+          position: { x: 60, y: 35 }
+        }
       ],
       lastAccessed: '1 day ago'
     }
@@ -91,19 +174,44 @@ export const StudentDashboard = () => {
 
   const handleContinueLearning = (course: Course) => {
     setSelectedCourse(course);
+    setCurrentView('map');
+  };
+
+  const handleModuleClick = (moduleId: string) => {
+    setSelectedModuleId(moduleId);
     setCurrentView('lesson');
   };
 
   const handleBackToDashboard = () => {
     setCurrentView('dashboard');
     setSelectedCourse(null);
+    setSelectedModuleId(null);
   };
 
-  if (currentView === 'lesson' && selectedCourse) {
+  const handleBackToMap = () => {
+    setCurrentView('map');
+    setSelectedModuleId(null);
+  };
+
+  if (currentView === 'lesson' && selectedCourse && selectedModuleId) {
+    const moduleIndex = selectedCourse.modules.findIndex(m => m.id === selectedModuleId);
     return (
       <LessonView
         courseTitle={selectedCourse.title}
         modules={selectedCourse.modules}
+        initialModuleIndex={moduleIndex >= 0 ? moduleIndex : 0}
+        onBack={handleBackToMap}
+      />
+    );
+  }
+
+  if (currentView === 'map' && selectedCourse) {
+    return (
+      <LearningMap
+        courseTitle={selectedCourse.title}
+        modules={selectedCourse.modules}
+        currentModuleId={selectedModuleId || selectedCourse.modules.find(m => !m.completed && !m.locked)?.id}
+        onModuleClick={handleModuleClick}
         onBack={handleBackToDashboard}
       />
     );

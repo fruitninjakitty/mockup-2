@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -22,11 +21,12 @@ interface Module {
 interface LessonViewProps {
   courseTitle: string;
   modules: Module[];
+  initialModuleIndex?: number;
   onBack: () => void;
 }
 
-export const LessonView = ({ courseTitle, modules, onBack }: LessonViewProps) => {
-  const [currentModuleIndex, setCurrentModuleIndex] = useState(0);
+export const LessonView = ({ courseTitle, modules, initialModuleIndex = 0, onBack }: LessonViewProps) => {
+  const [currentModuleIndex, setCurrentModuleIndex] = useState(initialModuleIndex);
   const [showSidebar, setShowSidebar] = useState(true);
   
   const currentModule = modules[currentModuleIndex];
@@ -167,7 +167,7 @@ function greet(name) {
             <div className="flex items-center space-x-4">
               <Button variant="ghost" onClick={onBack} className="flex items-center space-x-2">
                 <ArrowLeft className="w-4 h-4" />
-                <span>Back to Dashboard</span>
+                <span>Back to Map</span>
               </Button>
               
               {!showSidebar && (
